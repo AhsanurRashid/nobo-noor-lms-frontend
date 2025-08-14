@@ -1,10 +1,8 @@
 "use server";
 
-import { getToken } from "@/lib/auth";
-
 const getSlidersAction = async () => {
   try {
-    ("use cache");
+    "use cache";
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/sliders`, {
       method: "GET",
       headers: {

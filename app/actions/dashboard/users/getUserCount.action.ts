@@ -1,7 +1,6 @@
 "use server";
 
 import { getToken } from "@/lib/auth";
-import { revalidateTag } from "next/cache";
 
 const getUserCountAction = async () => {
   const token = await getToken()
@@ -11,7 +10,7 @@ const getUserCountAction = async () => {
   }
 
   try {
-    ("use cache");
+    "use cache";
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/count`, {
       method: "GET",
       headers: {

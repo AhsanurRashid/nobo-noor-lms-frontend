@@ -37,8 +37,8 @@ const CreateSliderAction = async (formdata: FormData) => {
     }
     const data = await response.json();
     return data;
-  } catch (error: any) {
-    return error.response?.data || { error: "An error occurred during slider creation" };
+  } catch (error) {
+    return { error: "An error occurred during slider creation", details: error };
   }
 };
 

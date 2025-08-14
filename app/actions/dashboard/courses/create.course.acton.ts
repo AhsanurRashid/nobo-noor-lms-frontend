@@ -1,7 +1,7 @@
 "use server";
 
 import { getToken } from "@/lib/auth";
-import { createCourseSchema, CreateCourseSchema } from "@/lib/schemas/course.schema";
+import { createCourseSchema } from "@/lib/schemas/course.schema";
 import { revalidateTag } from "next/cache";
 
 const createCourseAction = async (formData: FormData) => {

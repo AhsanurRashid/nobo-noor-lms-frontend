@@ -1,6 +1,5 @@
 "use server";
 
-import { setToken, setUserId } from "@/lib/auth";
 import { forgetPasswordSchema, ForgetPasswordSchema } from "@/lib/schemas/forgetPassword.schema";
 
 const ForgetPassword = async (data: ForgetPasswordSchema) => {

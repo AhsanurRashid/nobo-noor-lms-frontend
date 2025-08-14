@@ -2,7 +2,6 @@
 
 import { setToken, setUserId } from "@/lib/auth";
 import { loginSchema, LoginSchema } from "@/lib/schemas/login.schema";
-import { revalidateTag } from "next/cache";
 
 const LoginAction = async (data: LoginSchema) => {
     const validatedData = loginSchema.safeParse({

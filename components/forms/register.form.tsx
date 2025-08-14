@@ -4,14 +4,6 @@ import { useForm } from "react-hook-form";
 import { registerSchema, RegisterSchema } from "@/lib/schemas/register.schema";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormDescription } from "@/components/ui/form";
 import { Input } from "@/components/ui/input"; 
-import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 import { EyeClosed, EyeIcon } from "lucide-react";
 import { useState, useTransition } from "react";
 import {
@@ -134,27 +126,6 @@ const RegisterForm = () => {
                 </FormItem>
             )}
             />
-            {/* <FormField
-            control={form.control}
-            name="role"
-            render={({ field }) => (
-                <FormItem className="w-full flex items-center">
-                <FormLabel>Role</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                    <SelectTrigger>
-                        <SelectValue placeholder="Select a role" />
-                    </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                    <SelectItem value="student">Student</SelectItem>
-                    <SelectItem value="instructor">Instructor</SelectItem>
-                    </SelectContent>
-                </Select>
-                <FormMessage />
-                </FormItem>
-            )}
-            /> */}
             <SubmitButton className="w-full" isPending={isPending}>Register</SubmitButton>
         </form>
         </Form>

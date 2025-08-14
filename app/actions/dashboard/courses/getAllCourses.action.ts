@@ -10,7 +10,7 @@ const getAllCoursesAction = async ({
   limit?: number;
 }) => {
   try {
-    ("use cache");
+    "use cache";
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/courses?page=${page}&search=${encodeURIComponent(search)}&limit=${limit}`, {
       method: "GET",
       next: { tags: ["course-list"] },
@@ -23,8 +23,7 @@ const getAllCoursesAction = async ({
     const result = await response.json();
     return result;
   } catch (error) {
-    console.error("Fetch user failed:", error);
-    return { error: "Something went wrong" };
+    return { error: "Something went wrong", details: error };
   }
 };
 

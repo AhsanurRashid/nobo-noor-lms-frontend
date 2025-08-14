@@ -3,14 +3,12 @@ import {
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { menuList } from "@/lib/data/menu.list"
 import { IMenu } from "@/lib/types/menu.type"
 import { Menu } from "lucide-react"
-import Link from "next/link"
 const MenuForMobile = () => {
   return (
     <div className="lg:hidden block">

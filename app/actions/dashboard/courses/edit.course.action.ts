@@ -49,7 +49,7 @@ const editCourseAction = async(formData: FormData, id: string) =>{
         return result;
 
     }catch (error) {
-        return { error: "Failed to edit user" }
+        return { error: "Failed to edit user", details: error }
     }
 }
 export default editCourseAction;

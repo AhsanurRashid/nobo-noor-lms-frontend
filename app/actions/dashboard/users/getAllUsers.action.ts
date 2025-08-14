@@ -18,7 +18,7 @@ const getAllUsersAction = async ({
   }
 
   try {
-    ("use cache");
+    "use cache";
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users?page=${page}&search=${encodeURIComponent(search)}&limit=${limit}`, {
       method: "GET",
       headers: {

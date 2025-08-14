@@ -2,7 +2,6 @@
 
 import updateSliderAction from "@/app/actions/dashboard/sliders/updateSlider.action";
 import { Button } from "@/components/ui/button";
-import { error } from "console";
 import { Edit} from "lucide-react";
 import { useRef } from "react";
 import { toast } from "sonner";

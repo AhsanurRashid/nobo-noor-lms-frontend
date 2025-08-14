@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/layout/navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "sonner";
 

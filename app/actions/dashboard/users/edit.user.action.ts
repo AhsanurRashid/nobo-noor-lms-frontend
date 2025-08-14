@@ -30,7 +30,7 @@ const editUserAction = async(data: z.infer<typeof editUserSchema>, id: string) =
     return result;
 
     }catch (error) {
-        return { error: "Failed to edit user" }
+        return { error: "Failed to edit user", details: error }
     }
 }
 export default editUserAction;

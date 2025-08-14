@@ -1,5 +1,4 @@
 import { cookies } from 'next/headers'
-import { IUserLoggedIn } from '@/lib/types/user.type'
 
 export async function setToken(token: string) {
   (await cookies()).set('auth_token', token, {

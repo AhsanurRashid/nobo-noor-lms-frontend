@@ -1,5 +1,5 @@
 import Logo from "@/components/layout/logo";
-import { Facebook, Headset, Instagram, Linkedin, Mail, Menu, Twitter } from 'lucide-react';
+import { Facebook, Headset, Instagram, Linkedin, Mail, Twitter } from 'lucide-react';
 import ThemeToggler from "@/components/layout/toggle-theme";
 import { Button } from "@/components/ui/button";
 import UserAvatar from "./user-avatar";

@@ -19,11 +19,9 @@ import {
 } from "@/components/ui/card"
 import { toast } from "sonner";
 import SubmitButton from "@/components/common/submit.button";
-import { useRouter } from "next/navigation";
 import createUserAction from "@/app/actions/dashboard/users/create.user.action";
 
 const UserCreationForm = () => {
-    const router = useRouter();
     const [showPassword, setShowPassword] = useState(false);
     const [isPending, startTransition] = useTransition();
 

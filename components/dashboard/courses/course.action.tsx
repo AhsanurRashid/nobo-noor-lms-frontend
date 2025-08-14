@@ -15,7 +15,6 @@ import {
 } from "@/components/ui/alert-dialog";
 import { toast } from "sonner";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import getUserByIdAction from "@/app/actions/dashboard/users/get.user.by.id";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import deleteCourseAction from "@/app/actions/dashboard/courses/delete.course.action";
 import { ICourse } from "@/lib/types/course.type";
@@ -30,8 +29,6 @@ const CourseActions = ({ course }: { course: ICourse }) => {
   const handleDeleteCourse = async() => {
     startTransition(async () => {
       const res = await deleteCourseAction(course._id);
-
-      console.log("Delete Course Response: ", res);
 
       if(res.error) {
           toast.error("Course not deleted", { description: res.error, duration: 2000 });
