@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import { registerSchema, RegisterSchema } from "@/lib/schemas/register.schema";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormDescription } from "@/components/ui/form";
 import { Input } from "@/components/ui/input"; 
-import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -16,18 +15,14 @@ import { EyeClosed, EyeIcon } from "lucide-react";
 import { useState, useTransition } from "react";
 import {
   Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
+  CardContent
 } from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
-import RegisterAction from "@/app/actions/auth/register.action";
 import { toast } from "sonner";
-import SubmitButton from "../common/submit.button";
+import SubmitButton from "@/components/common/submit.button";
 import { useRouter } from "next/navigation";
+import createUserAction from "@/app/actions/dashboard/users/create.user.action";
 
-const RegisterForm = () => {
+const UserCreationForm = () => {
     const router = useRouter();
     const [showPassword, setShowPassword] = useState(false);
     const [isPending, startTransition] = useTransition();
@@ -48,8 +43,7 @@ const RegisterForm = () => {
     });
     const onSubmit = async(data: RegisterSchema) => {
         startTransition(async () => {
-            const res = await RegisterAction(data)
-            
+            const res = await createUserAction(data)
             
             if(res.code === 400) {
                 toast.error('Registration failed', {
@@ -63,17 +57,12 @@ const RegisterForm = () => {
                     description: res.message || "You can now log in",
                     duration: 2000,
                 });
-                router.push('/login');
+                form.reset();
             }
         });
     };
   return (
     <Card className="w-full max-w-md mx-auto">
-      <CardHeader>
-        <CardTitle className="text-center">Register</CardTitle>
-        <CardDescription className="text-center">Create a new account</CardDescription>
-      </CardHeader>
-      <Separator />
       <CardContent>
         <Form {...form} >
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
@@ -134,7 +123,7 @@ const RegisterForm = () => {
                 </FormItem>
             )}
             />
-            {/* <FormField
+            <FormField
             control={form.control}
             name="role"
             render={({ field }) => (
@@ -147,6 +136,7 @@ const RegisterForm = () => {
                     </SelectTrigger>
                     </FormControl>
                     <SelectContent>
+                    <SelectItem value="admin">Admin</SelectItem>
                     <SelectItem value="student">Student</SelectItem>
                     <SelectItem value="instructor">Instructor</SelectItem>
                     </SelectContent>
@@ -154,8 +144,8 @@ const RegisterForm = () => {
                 <FormMessage />
                 </FormItem>
             )}
-            /> */}
-            <SubmitButton className="w-full" isPending={isPending}>Register</SubmitButton>
+            />
+            <SubmitButton className="w-full" isPending={isPending}>Create User</SubmitButton>
         </form>
         </Form>
        </CardContent>
@@ -163,4 +153,4 @@ const RegisterForm = () => {
   )
 }
 
-export default RegisterForm
+export default UserCreationForm

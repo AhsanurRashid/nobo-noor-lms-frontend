@@ -2,11 +2,8 @@ import { IDashboardPage } from "@/lib/types/dashboard-pages.type";
 import {
   Users,
   LayoutDashboard,
-  Truck,
-  ShipWheel,
-  UserCog,
-  BadgeDollarSign,
-  Building2Icon,
+  BookOpenText,
+  ImageIcon
 } from "lucide-react";
 
 export const dashboardPages: IDashboardPage[] = [
@@ -17,37 +14,17 @@ export const dashboardPages: IDashboardPage[] = [
   },
   {
     name: "Sliders",
-    icon: LayoutDashboard,
+    icon: ImageIcon,
     href: "/admin/dashboard/sliders",
   },
   {
     name: "Users",
     icon: Users,
-    href: "/dashboard/users",
+    href: "/admin/dashboard/users",
   },
   {
-    name: "Companies",
-    icon: Building2Icon,
-    href: "/dashboard/companies",
-  },
-  {
-    name: "Roles",
-    icon: UserCog,
-    href: "/dashboard/roles",
-  },
-  {
-    name: "Drivers",
-    icon: ShipWheel,
-    href: "/dashboard/drivers",
-  },
-  {
-    name: "Vehicles",
-    icon: Truck,
-    href: "/dashboard/vehicles",
-  },
-  {
-    name: "Rents",
-    icon: BadgeDollarSign,
-    href: "/dashboard/rents",
-  },
+    name: "Courses",
+    icon: BookOpenText,
+    href: "/admin/dashboard/courses",
+  }
 ];

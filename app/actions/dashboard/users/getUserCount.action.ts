@@ -1,16 +1,24 @@
 "use server";
 
 import { getToken } from "@/lib/auth";
+import { revalidateTag } from "next/cache";
 
-const getSlidersAction = async () => {
+const getUserCountAction = async () => {
+  const token = await getToken()
+
+  if (!token) {
+    return { error: "Unauthorized" };
+  }
+
   try {
     ("use cache");
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/sliders`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/count`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
-      next: { tags: ["slider-list"] },
+      next: { tags: ["user-count-list"] },
     });
 
     if (!response.ok) {
@@ -25,4 +33,4 @@ const getSlidersAction = async () => {
   }
 };
 
-export default getSlidersAction;
+export default getUserCountAction;

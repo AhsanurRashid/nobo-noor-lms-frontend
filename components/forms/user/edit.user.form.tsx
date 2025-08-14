@@ -1,10 +1,8 @@
 "use client"
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { registerSchema, RegisterSchema } from "@/lib/schemas/register.schema";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormDescription } from "@/components/ui/form";
 import { Input } from "@/components/ui/input"; 
-import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -12,68 +10,61 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { EyeClosed, EyeIcon } from "lucide-react";
-import { useState, useTransition } from "react";
+import { useTransition } from "react";
 import {
   Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
+  CardContent
 } from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
-import RegisterAction from "@/app/actions/auth/register.action";
 import { toast } from "sonner";
-import SubmitButton from "../common/submit.button";
-import { useRouter } from "next/navigation";
+import SubmitButton from "@/components/common/submit.button";
+import { User } from "@/lib/types/user.type";
+import { editUserSchema, EditUserSchema } from "@/lib/schemas/edit.user.schema";
+import editUserAction from "@/app/actions/dashboard/users/edit.user.action";
 
-const RegisterForm = () => {
-    const router = useRouter();
-    const [showPassword, setShowPassword] = useState(false);
+const UserUpdateForm = ({userData}: {userData: User | null}) => {
     const [isPending, startTransition] = useTransition();
 
-    const togglePasswordVisibility = () => {
-        setShowPassword(!showPassword);
-    };
+    if(!userData) {
+        return (
+            <div className="text-center text-red-500 font-light text-xs">No user data available</div>
+        )
+    }
 
-    const form = useForm<RegisterSchema>({
-        resolver: zodResolver(registerSchema),
+    const form = useForm<EditUserSchema>({
+        resolver: zodResolver(editUserSchema),
         defaultValues: {
-            email: "",
-            password: "",
-            name: "",
-            phone: "",
-            role: "student", // Default role can be set here
+            email: userData.email || "",
+            name: userData.name || "",
+            phone: userData.phone || "",
+            role: (userData.role as "student" | "instructor" | "admin") || "student", // Default role can be set here
         },
     });
-    const onSubmit = async(data: RegisterSchema) => {
+    const onSubmit = async(data: EditUserSchema) => {
         startTransition(async () => {
-            const res = await RegisterAction(data)
-            
-            
+            const res = await editUserAction(data, userData._id)
+
             if(res.code === 400) {
-                toast.error('Registration failed', {
-                    description: res.message || "Registration failed",
+                toast.error('Update failed', {
+                    description: res.message || "User update failed",
                     duration: 2000,
                 });
                 return;
             }
-            if(res.code === 201){
-                toast.success('Registration successful', {
-                    description: res.message || "You can now log in",
+            if(res.code === 200){
+                toast.success('Update successful', {
+                    description: res.message || "User updated successfully",
                     duration: 2000,
                 });
-                router.push('/login');
+                // form.reset();
+                form.setValue("email", res.user.email);
+                form.setValue("name", res.user.name);
+                form.setValue("phone", res.user.phone);
+                form.setValue("role", res.user.role);
             }
         });
     };
   return (
     <Card className="w-full max-w-md mx-auto">
-      <CardHeader>
-        <CardTitle className="text-center">Register</CardTitle>
-        <CardDescription className="text-center">Create a new account</CardDescription>
-      </CardHeader>
-      <Separator />
       <CardContent>
         <Form {...form} >
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
@@ -118,24 +109,6 @@ const RegisterForm = () => {
             />
             <FormField
             control={form.control}
-            name="password"
-            render={({ field }) => (
-                <FormItem className="relative">
-                <FormLabel>Password</FormLabel>
-                <FormControl>
-                    <Input placeholder="••••••••" type={showPassword ? "text" : "password"} {...field} />
-                </FormControl>
-                <FormDescription onClick={togglePasswordVisibility} className="absolute right-2 top-2/3 transform -translate-y-1/2 cursor-pointer">
-                {
-                    showPassword ? <EyeIcon className="h-4 w-4" /> : <EyeClosed className="h-4 w-4" />
-                }
-                    </FormDescription>
-                <FormMessage />
-                </FormItem>
-            )}
-            />
-            {/* <FormField
-            control={form.control}
             name="role"
             render={({ field }) => (
                 <FormItem className="w-full flex items-center">
@@ -147,6 +120,7 @@ const RegisterForm = () => {
                     </SelectTrigger>
                     </FormControl>
                     <SelectContent>
+                    <SelectItem value="admin">Admin</SelectItem>
                     <SelectItem value="student">Student</SelectItem>
                     <SelectItem value="instructor">Instructor</SelectItem>
                     </SelectContent>
@@ -154,8 +128,8 @@ const RegisterForm = () => {
                 <FormMessage />
                 </FormItem>
             )}
-            /> */}
-            <SubmitButton className="w-full" isPending={isPending}>Register</SubmitButton>
+            />
+            <SubmitButton className="w-full" isPending={isPending}>Update User</SubmitButton>
         </form>
         </Form>
        </CardContent>
@@ -163,4 +137,4 @@ const RegisterForm = () => {
   )
 }
 
-export default RegisterForm
+export default UserUpdateForm

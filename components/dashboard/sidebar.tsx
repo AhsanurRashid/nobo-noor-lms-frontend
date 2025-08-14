@@ -26,7 +26,6 @@ const Sidebar = () => {
         setActivePage("dashboard");
       }
     } else {
-      console.log("pathNameArray =>", pathNameArray);
       setActivePage("Dashboard");
     }
     
